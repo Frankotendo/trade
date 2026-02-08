@@ -1,7 +1,0 @@
-{
-  "name": "TradeSim AI: Alpha Terminal",
-  "description": "An immersive AI-powered trading simulator. Learn technical analysis, risk management, and market psychology by trading simulated assets guided by an AI hedge fund manager.",
-  "requestFramePermissions": [
-    "microphone"
-  ]
-}
