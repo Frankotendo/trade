@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Lecture, LectureStep } from '../types';
 import { Maximize2, Minimize2, GraduationCap, ChevronRight, Play, Check, BookOpen, Loader2, Search, Library } from 'lucide-react';
@@ -177,7 +176,7 @@ const TutorBoard: React.FC<TutorBoardProps> = ({
 
             {/* Board Content - Chalkboard Style */}
             <div className="font-mono text-4xl text-emerald-50/90 leading-relaxed whitespace-pre-wrap selection:bg-emerald-500 selection:text-black tracking-tight filter drop-shadow-[0_0_15px_rgba(16,185,129,0.2)] max-w-5xl mx-auto">
-                <span className="text-emerald-500/40 text-xl block mb-6">>> ANALYSIS_DUMP:</span>
+                <span className="text-emerald-500/40 text-xl block mb-6">{" >> "} ANALYSIS_DUMP:</span>
                 {currentStep.boardNotes}
             </div>
          </div>
