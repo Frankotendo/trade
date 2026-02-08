@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Asset, TradeAction, BrokerType } from '../types';
 import { bridgeService } from '../services/secureBridge';
@@ -43,10 +42,9 @@ const ExecutionTerminal: React.FC<ExecutionTerminalProps> = ({ activeAsset, onEx
   const [orderBook, setOrderBook] = useState<{bids: OrderBookLevel[], asks: OrderBookLevel[]}>({ bids: [], asks: [] });
   const wsRef = useRef<WebSocket | null>(null);
 
-  // Simulate real-time bridge connection pulse and latency metrics
   useEffect(() => {
     const interval = setInterval(() => {
-        const online = Math.random() > 0.02; // Very rare disconnect simulation
+        const online = Math.random() > 0.02;
         setIsBridgeOnline(online);
         setLatency(online ? Math.floor(Math.random() * 15) + 3 : 0);
         setPingPulse(true);
@@ -146,7 +144,6 @@ const ExecutionTerminal: React.FC<ExecutionTerminalProps> = ({ activeAsset, onEx
       });
     } catch (err: any) {
       const errMsg = err.message || "BRIDGE_AUTH_REFUSED";
-      // User-friendly error mapping
       let displayError = errMsg.toUpperCase().replace(/\s/g, '_');
       if (errMsg === 'INSUFFICIENT_FUNDS') displayError = 'ERROR: INSUFFICIENT BALANCE FOR ORDER';
       if (errMsg === 'INVALID_QUANTITY') displayError = 'ERROR: ORDER SIZE BELOW MINIMUM THRESHOLD';
@@ -162,7 +159,6 @@ const ExecutionTerminal: React.FC<ExecutionTerminalProps> = ({ activeAsset, onEx
   return (
     <div className={`h-full flex flex-col bg-[#020408] font-mono text-xs overflow-hidden select-none border border-slate-800 rounded-lg shadow-2xl relative`}>
       
-      {/* Config Overlay */}
       {showConfig && (
         <div className="absolute inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-8 animate-in fade-in duration-300">
             <div className="max-w-md w-full glass-panel border-slate-800 p-10 rounded-[2rem] shadow-[0_0_80px_rgba(245,158,11,0.1)]">
@@ -260,9 +256,7 @@ const ExecutionTerminal: React.FC<ExecutionTerminalProps> = ({ activeAsset, onEx
         </div>
       )}
 
-      {/* Header */}
       <div className="p-4 border-b border-red-900/30 bg-red-950/5 flex items-center justify-between relative overflow-hidden">
-        {/* Real-time scanning effect across the header when "linked" */}
         {isLinked && isBridgeOnline && (
             <div className="absolute top-0 bottom-0 w-20 bg-emerald-500/10 blur-xl animate-[scan_4s_linear_infinite] pointer-events-none"></div>
         )}
@@ -283,7 +277,6 @@ const ExecutionTerminal: React.FC<ExecutionTerminalProps> = ({ activeAsset, onEx
                 
                 <div className="w-[1px] h-2.5 bg-slate-800"></div>
 
-                {/* Enhanced Real-time Connection Quality Indicator */}
                 <div className="flex items-center gap-3 px-3 py-1 bg-black/60 border border-white/5 rounded-lg shadow-inner">
                     <div className="flex items-center gap-1.5">
                         {isBridgeOnline ? (
@@ -322,7 +315,6 @@ const ExecutionTerminal: React.FC<ExecutionTerminalProps> = ({ activeAsset, onEx
       </div>
 
       <div className={`flex-1 flex overflow-hidden ${isMaximized ? 'min-h-0' : 'h-[500px]'}`}>
-        {/* Left: Neural Logic */}
         <div className="w-80 border-r border-slate-900 p-6 space-y-8 bg-[#05070a] overflow-y-auto custom-scrollbar">
           <div className="space-y-6">
             <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
@@ -359,13 +351,12 @@ const ExecutionTerminal: React.FC<ExecutionTerminalProps> = ({ activeAsset, onEx
                         {log}
                     </div>
                 ))}
-                {isLinked && isBridgeOnline && <div className="text-emerald-500/40 animate-pulse mt-2 flex items-center gap-2">>>> STANDBY_FOR_ALPHA_SIGNAL...</div>}
-                {(!isBridgeOnline && isLinked) && <div className="text-red-500/40 animate-pulse mt-2 flex items-center gap-2">>>> LINK_TEMPORARILY_SEVERED...</div>}
+                {isLinked && isBridgeOnline && <div className="text-emerald-500/40 animate-pulse mt-2 flex items-center gap-2">{" >>> "} STANDBY_FOR_ALPHA_SIGNAL...</div>}
+                {(!isBridgeOnline && isLinked) && <div className="text-red-500/40 animate-pulse mt-2 flex items-center gap-2">{" >>> "} LINK_TEMPORARILY_SEVERED...</div>}
              </div>
           </div>
         </div>
 
-        {/* Center: Market Depth */}
         <div className="flex-1 flex flex-col bg-[#020406] border-r border-slate-900">
             <div className="p-4 bg-slate-900/10 border-b border-slate-900/50 flex justify-between text-[10px] font-bold text-slate-600 uppercase tracking-widest">
                 <div className="flex items-center gap-2"><Globe size={14} className="text-blue-500 animate-pulse" /> Direct Market Access</div>
@@ -403,7 +394,6 @@ const ExecutionTerminal: React.FC<ExecutionTerminalProps> = ({ activeAsset, onEx
             </div>
         </div>
 
-        {/* Right: Action Core */}
         <div className="w-72 flex flex-col bg-[#05070a] border-l border-slate-900">
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
                 <div className="p-5 border border-blue-900/30 bg-blue-950/5 rounded-2xl shadow-inner">
